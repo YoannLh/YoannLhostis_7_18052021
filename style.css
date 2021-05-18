@@ -1,0 +1,34 @@
+
+body {
+	padding: 0;
+	margin: 0;
+}
+.flex {
+	display: flex;
+}
+header {
+	height: 150px;
+}
+img {
+	margin: auto;
+	height: 5em;
+}
+main {
+	padding: 0 6%;
+}
+.containerInput {
+	position: relative;
+}
+#input {
+	margin: auto;
+	background: rgba(150,150,150,0.2);
+}
+#input::placeholder {
+	color: rgba(0,0,0,0.3);
+}
+#magnifyingGlass {
+	position: absolute;
+	right: 1.5%;
+	top: 6px;
+	font-size: 1.5em;
+}
