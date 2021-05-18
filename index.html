@@ -13,34 +13,95 @@
 		<img src="./images/logo.png" alt="logo_les_petits_plats">
 	</header>
 	<main>
-		<form class="containerInput" method="post" action="">
-			<input id="input" class="form-control form-control-lg" type="text" placeholder="Rechercher un ingrédient, appareil, ustensile ou une recette">
-			<div type="submit" id="magnifyingGlass"><i class="fas fa-search"></i></div>
-		</form>
-		<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown button
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
-  </div>
-</div>
-
-<!-- Example single danger button -->
-<div class="btn-group">
-  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Action
-  </button>
-  <div class="dropdown-menu">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
-    <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="#">Separated link</a>
-  </div>
-</div>
+		<section>
+			<form class="containerInput" method="post" action="" autocomplete="off">
+				<input id="input" class="form-control form-control-lg" type="text" placeholder="Rechercher un ingrédient, appareil, ustensile ou une recette">
+				<div type="submit" id="magnifyingGlass"><i class="fas fa-search"></i></div>
+			</form>
+		</section>
+		<section id="containerKeywords" class="flex">
+			<div class="keyword">café</div>
+			<div class="keyword">sucre</div>
+			<div class="keyword">lait</div>
+			<div class="keyword">shaker</div>
+			<div class="keyword">casserole</div>
+			<div class="keyword">fourchette</div>
+			<div class="keyword">couteau</div>
+			<div class="keyword">café</div>
+			<div class="keyword">sucre</div>
+			<div class="keyword">lait</div>
+			<div class="keyword">shaker</div>
+			<div class="keyword">casserole</div>
+			<div class="keyword">fourchette</div>
+			<div class="keyword">couteau</div>
+		</section>
+		<section class="dropdowns flex">
+			<div class="dropdown">
+				<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	   				Dropdown button
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				    <a class="dropdown-item" href="#">Action</a>
+				    <a class="dropdown-item" href="#">Another action</a>
+				    <a class="dropdown-item" href="#">Something else here</a>
+				</div>
+			</div>
+			<!-- Example single danger button -->
+			<div class="btn-group">
+				<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	    			Action
+				</button>
+				<div class="dropdown-menu">
+				    <a class="dropdown-item" href="#">Action</a>
+				    <a class="dropdown-item" href="#">Another action</a>
+				    <a class="dropdown-item" href="#">Something else here</a>
+				    <div class="dropdown-divider"></div>
+				    <a class="dropdown-item" href="#">Separated link</a>
+				</div>
+			</div>
+			<div class="dropdown">
+				<button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	   				Dropdown button
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				    <a class="dropdown-item" href="#">Action</a>
+				    <a class="dropdown-item" href="#">Another action</a>
+				    <a class="dropdown-item" href="#">Something else here</a>
+				</div>
+			</div>
+		</section>
+		<section id="containerCards" class="flex">
+			<article class="card">
+				<div class="up"></div>
+				<div class="down">
+					<div class="titlePlusTime flex">
+						<div>Titre du Menu</div>
+						<div>O 40mn</div>
+					</div>
+					<div>
+						<div class="contentMenu flex">
+							<ul>
+								<li>lalalalala</li>
+								<li>lalalalalala</li>
+								<li>lalalalalala</li>
+								<li>lalalalalala</li>
+								<li>lalalalalala</li>
+							</ul>
+							<div class="recipe">Lorem ipsum dolor sit amet, consectetur adipisicing, elit. Distinctio rem reiciendis beatae doloribus</div>
+						</div>
+					</div>
+				</div>
+			</article>
+			<div class="card"></div>
+			<div class="card"></div>
+			<div class="card"></div>
+			<div class="card"></div>
+			<div class="card"></div>
+			<div class="card"></div>
+			<div class="card"></div>
+			<div class="card"></div>
+			<div class="card"></div>
+		</section>
 	</main>
 	<footer>
 		
@@ -49,5 +110,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
 	<script src="./js/Input.js"></script>
+	<script src="./js/Card.js"></script>
+	<script src="./js/ManagerContainerCards.js"></script>
 </body>
 </html>

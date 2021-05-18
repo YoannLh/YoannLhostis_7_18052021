@@ -16,12 +16,18 @@ img {
 main {
 	padding: 0 6%;
 }
+ul {
+	padding: 0;
+}
+li {
+	list-style-type: none;
+}
 .containerInput {
 	position: relative;
 }
 #input {
 	margin: auto;
-	background: rgba(150,150,150,0.2);
+	background: rgba(231, 231, 231, 1);
 }
 #input::placeholder {
 	color: rgba(0,0,0,0.3);
@@ -32,3 +38,102 @@ main {
 	top: 6px;
 	font-size: 1.5em;
 }
+#containerKeywords {
+	height: auto;
+	width: 100%;
+	flex-wrap: wrap;
+}
+.keyword {
+	height: 50px;
+	padding: 7px;
+	margin: 10px 10px 10px 0;
+	color: white;
+	background: rgba(104, 217, 164, 1);
+	text-align: center;
+	align-items: center;
+	border-radius: 3px;
+}
+.dropdowns {
+	height: 50px;
+}
+@media screen and (max-width: 500px) {
+	.dropdowns {
+		flex-direction: column;
+		height: auto;
+	}
+}
+.dropdown, .btn-group {
+	margin: 0 1% auto 0;
+}
+#containerCards {
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+@media screen and (max-width: 500px) {
+	#containerCards {
+		flex-wrap: nowrap;
+		flex-direction: column;
+	}
+}
+.card {
+	height: 300px;
+	width: 30%;
+	margin-bottom: 45px;
+	font-size: 0.7em;
+	border: 1px solid black;
+}
+@media screen and (max-width: 500px) {
+	.card {
+		width: 100%;
+		margin-bottom: 25px;
+	}
+}
+.up {
+	height: 49%;
+	width: 100%;
+	background: rgba(199, 190, 190, 1);;
+}
+.down {
+	height: 51%;
+	width: 100%;
+	background: rgba(231, 231, 231, 1);
+}
+.titlePlusTime {
+	justify-content: space-between;
+	padding: 5% 5%;
+}
+.contentMenu {
+	justify-content: space-between;
+	padding: 0 5%;
+}
+.recipe {
+	width: 50%;
+	text-align: justify;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

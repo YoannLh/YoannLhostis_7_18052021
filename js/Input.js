@@ -5,8 +5,9 @@ class Input {
 		this.search = document.getElementById("magnifyingGlass");
 	}
 	listeningChanges() {
-		this.input.addEventListener("input", () => {
+		this.input.addEventListener("input", (event) => {
 			console.log("on change : " + event.target.value);
+			event.preventDefault();
 		})
 	}
 	clickOnSearch() {
