@@ -6,6 +6,9 @@ body {
 .flex {
 	display: flex;
 }
+.bold {
+	font-weight: bold;
+}
 header {
 	height: 150px;
 }
@@ -44,26 +47,30 @@ li {
 	flex-wrap: wrap;
 }
 .keyword {
-	height: 50px;
+	height: 37px;
 	padding: 7px;
-	margin: 10px 10px 10px 0;
+	margin: 10px 10px 0 0;
 	color: white;
 	background: rgba(104, 217, 164, 1);
-	text-align: center;
-	align-items: center;
 	border-radius: 3px;
 }
+.keyword p {
+	margin: auto;
+}
+.fa-times-circle {
+	margin: auto 10%;
+}
 .dropdowns {
-	height: 50px;
+	height: 58px;
 }
 @media screen and (max-width: 500px) {
 	.dropdowns {
-		flex-direction: column;
 		height: auto;
+		justify-content: space-between;
 	}
 }
-.dropdown, .btn-group {
-	margin: 0 1% auto 0;
+.dropdown {
+	margin: auto 1% auto 0;
 }
 #containerCards {
 	flex-wrap: wrap;
@@ -79,7 +86,6 @@ li {
 	height: 300px;
 	width: 30%;
 	margin-bottom: 45px;
-	font-size: 0.7em;
 	border: 1px solid black;
 }
 @media screen and (max-width: 500px) {
@@ -100,15 +106,27 @@ li {
 }
 .titlePlusTime {
 	justify-content: space-between;
-	padding: 5% 5%;
+	padding: 3% 4.5%;
+	font-size: 1em;
+}
+.titleMenu {
+	width: 200px;
+	height: 26px;
+	overflow: hidden;
+}
+.menuTime {
+	font-weight: bold;
 }
 .contentMenu {
 	justify-content: space-between;
-	padding: 0 5%;
+	padding: 0 4.5%;
+	font-size: 0.6em;
 }
 .recipe {
 	width: 50%;
+	height: 85px;
 	text-align: justify;
+	overflow: hidden;
 }
 
 
