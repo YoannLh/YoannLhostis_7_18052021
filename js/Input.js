@@ -8,6 +8,10 @@ class Input {
 		this.input.addEventListener("input", (event) => {
 			console.log("on change : " + event.target.value);
 			event.preventDefault();
+			// Supérieur à 3 caractères >>> lance tris
+			if(event.target.value.length >= 3) {
+				console.log("input >= 3");
+			}
 		})
 	}
 	clickOnSearch() {

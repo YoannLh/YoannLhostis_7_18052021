@@ -12,8 +12,10 @@ body {
 header {
 	height: 150px;
 }
-img {
+a {
 	margin: auto;
+}
+img {
 	height: 5em;
 }
 main {
@@ -50,8 +52,8 @@ li {
 	height: 37px;
 	padding: 7px;
 	margin: 10px 10px 0 0;
+	justify-content: space-between;
 	color: white;
-	background: rgba(104, 217, 164, 1);
 	border-radius: 3px;
 }
 .keyword p {
@@ -71,6 +73,30 @@ li {
 }
 .dropdown {
 	margin: auto 1% auto 0;
+}
+#containerIngredients {
+	width: 600px;
+	height: 500px;
+	padding: 10px 20px;
+	flex-direction: column;
+	overflow: auto;
+	color: white;
+}
+#containerAppliances {
+	width: 600px;
+	height: 500px;
+	padding: 10px 20px;
+	flex-direction: column;
+	overflow: auto;
+	color: white;
+}
+#containerUstensils {
+	width: 600px;
+	height: 500px;
+	padding: 10px 20px;
+	flex-direction: column;
+	overflow: auto;
+	color: white;
 }
 #containerCards {
 	flex-wrap: wrap;
@@ -94,12 +120,12 @@ li {
 		margin-bottom: 25px;
 	}
 }
-.up {
+.upCard {
 	height: 49%;
 	width: 100%;
 	background: rgba(199, 190, 190, 1);;
 }
-.down {
+.downCard {
 	height: 51%;
 	width: 100%;
 	background: rgba(231, 231, 231, 1);
