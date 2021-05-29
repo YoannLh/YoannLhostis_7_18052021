@@ -1,4 +1,4 @@
-const selectedKeywords = [];
+let selectedKeywords = [];
 
 class Main {
 	constructor(recipes) {
@@ -8,7 +8,6 @@ class Main {
 		this.dataUstensils = [];
 	}
 	sortDataByIngredients() {
-
 		String.prototype.sansAccent = function(){
 	   		var accent = [
 		        /[\300-\306]/g, /[\340-\346]/g, // A, a
@@ -41,7 +40,7 @@ class Main {
 		const ingredients = new Ingredients(this.dataIngredients);
 		ingredients.displayIngredients(); 
 		ingredients.clickAndDisplayKeyword();
-		ingredients.closeKeyword();
+		//ingredients.closeKeyword();
 	}
 	sortByAppliances() {
 		String.prototype.sansAccent = function(){
@@ -73,6 +72,7 @@ class Main {
 		const appliances = new Appliances(this.dataAppliances);
 		appliances.displayAppliances();
 		appliances.clickAndDisplayKeyword();
+		//appliances.closeKeyword();
 	}
 	sortByUstensils() {
 		String.prototype.sansAccent = function(){
