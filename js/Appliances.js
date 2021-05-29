@@ -14,43 +14,45 @@ class Appliances {
 				return '<p id="appliance' + i + '">' + appliance + '</p>';
 			}).join('');
 	}
-	displaySortedAppliances(sortedData) { // ??? dans l'idée de l'envoi d'un tableau trié dans les algos
-		console.log(sortedData);
-		return this.containerAppliances.innerHTML = 
-			this.sortedData.map(appliance => {
-				return '<p>' + appliance + '</p>';
-			}).join('');
-	}
+	// displaySortedAppliances(sortedData) { // ??? dans l'idée de l'envoi d'un tableau trié dans les algos
+	// 	console.log(sortedData);
+	// 	return this.containerAppliances.innerHTML = 
+	// 		this.sortedData.map(appliance => {
+	// 			return '<p>' + appliance + '</p>';
+	// 		}).join('');
+	// }
 	clickAndDisplayKeyword() {
 		for(let i = 1; i <= this.data.length; i++) {
 			document.getElementById("appliance" + i + "").addEventListener("click", (event) => {
-				selectedKeywords.push('<div class="keyword bg-danger flex"><p>' + event.target.innerText + '</p><div id="close' + (selectedKeywords.length + 1) + '"><i class="far fa-times-circle"></i></div></div>');
+				selectedKeywords.push({"name": event.target.innerText, "color": "danger"});
 				console.log(selectedKeywords);
 				this.containerKeywords.innerHTML = 
 					selectedKeywords.map(element => {
-						return element;
+						return '<div id="' + element.name + '" class="keyword bg-' + element.color + ' flex"><p>' + element.name + '</p><div><i class="far fa-times-circle"></i></div></div>';
 					}).join('');
 				this.closeKeyword();
 			});
 		}	
 	}
 	closeKeyword() {
-		let temp = selectedKeywords;
-		for(const el of temp) {
-			let index = temp.indexOf(el) + 1;
-			console.log(index);
-			document.getElementById("close" + index + "").addEventListener("click", () => {
-				console.log("click" + index + " !");
-				temp.splice(index - 1, 1);
-				selectedKeywords = temp;
-				this.containerKeywords.innerHTML = 
-					selectedKeywords.map(element => {
-						return element;
-					}).join('');
-				console.log(selectedKeywords);
+		console.log("closeKeyword()");
+		console.log(selectedKeywords);
+		for(const keyword of selectedKeywords) {
+			console.log(keyword.name);
+			let id = keyword.name.toString();
+			console.log(id);
+			document.getElementById(id).addEventListener("click", () => {
+				console.log(id + " clicked !!!");
+				let index = selectedKeywords.indexOf(keyword);
+				console.log(index);
+				selectedKeywords.splice(index, 1);
+				this.containerKeywords.innerHTML =
+				selectedKeywords.map(element => {
+					return '<div id="' + element.name + '" class="keyword bg-' + element.color + ' flex"><p>' + element.name + '</p><div><i class="far fa-times-circle"></i></div></div>';	
+				}).join('');
 				this.closeKeyword();
 			})
-		}	
+		}
 	}
 }
 
