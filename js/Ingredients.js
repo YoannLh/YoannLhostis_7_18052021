@@ -21,6 +21,9 @@ class Ingredients {
 	// 			return '<p>' + ingredient + '</p>';
 	// 		}).join('');
 	// }
+	sortKeywords() {
+		
+	}
 	clickAndDisplayKeyword() {
 		for(let i = 1; i <= this.data.length; i++) {
 			document.getElementById("ingredient" + i + "").addEventListener("click", (event) => {

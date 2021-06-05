@@ -21,6 +21,9 @@ class Appliances {
 	// 			return '<p>' + appliance + '</p>';
 	// 		}).join('');
 	// }
+	sortKeywords() {
+		
+	}
 	clickAndDisplayKeyword() {
 		for(let i = 1; i <= this.data.length; i++) {
 			document.getElementById("appliance" + i + "").addEventListener("click", (event) => {

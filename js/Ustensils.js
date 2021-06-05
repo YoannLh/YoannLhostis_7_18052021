@@ -21,6 +21,9 @@ class Ustensils {
 	// 			return '<p>' + ustensil + '</p>';
 	// 		}).join('');
 	// }
+	sortKeywords() {
+		
+	}
 	clickAndDisplayKeyword() {
 		for(let i = 1; i <= this.data.length; i++) {
 			document.getElementById("ustensil" + i + "").addEventListener("click", (event) => {

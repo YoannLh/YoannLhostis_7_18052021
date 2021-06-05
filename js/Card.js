@@ -1,66 +1,63 @@
 
-class ManagerContainerCards {
-	constructor() {
-		this.containerCards = document.getElementById("containerCards");
+class Card {
+	constructor(id, name, ingredients, time, description, appliance, ustensils) {
+		this.id = id;
+		this.name = name;
+		this.ingredients = ingredients;
+		this.time = time;
+		this.description = description;
+		this.appliance = appliance;
+		this.ustensils = ustensils;
+	}
+	displayIngredients() {
+		return this.ingredients.map(ing => {
+			if(!ing.quantity && !ing.quantite) {
+				return '<li><span class="bold">' + ing.ingredient + '</span></li>';
+			}
+			if(ing.quantity && ing.unit) {
+				let unit = ing.unit;
+				if(ing.unit == "grammes") {
+					unit = "g";
+				}
+				return '<li><span class="bold">' + ing.ingredient + '</span>' + ": " + ing.quantity + unit + '</li>';
+			}
+			if(ing.quantite && ing.unit) {
+				let unit = ing.unit;
+				if(ing.unit == "grammes") {
+					unit = "g";
+				}
+				return '<li><span class="bold">' + ing.ingredient + '</span>' + ": " + ing.quantite + unit + '</li>';
+			}
+			if(ing.quantity && !ing.unit) {
+				return '<li><span class="bold">' + ing.ingredient + '</span>' + ": " + ing.quantity + '</li>';
+			}
+			if(ing.quantite && !ing.unti) {
+				return '<li><span class="bold">' + ing.ingredient + '</span>' + ": " + ing.quantite + '</li>';
+			}
+		}).join('');
 	}
 	render() {
-		//this.containerCards.innerHTML = 
-			
-	}
-}
-
-const managerContainerCards = new ManagerContainerCards();
-managerContainerCards.render();
-
-this.containerCards.innerHTML =
-	recipes.map(recipe => {
-		let displayIngredients = () => {
-			return recipe.ingredients.map(ing => {
-				if(!ing.quantity && !ing.quantite) {
-					return '<li><span class="bold">' + ing.ingredient + '</span></li>';
-				}
-				if(ing.quantity && ing.unit) {
-					let unit = ing.unit;
-					if(ing.unit == "grammes") {
-						unit = "g";
-					}
-					return '<li><span class="bold">' + ing.ingredient + '</span>' + ": " + ing.quantity + unit + '</li>';
-				}
-				if(ing.quantite && ing.unit) {
-					let unit = ing.unit;
-					if(ing.unit == "grammes") {
-						unit = "g";
-					}
-					return '<li><span class="bold">' + ing.ingredient + '</span>' + ": " + ing.quantite + unit + '</li>';
-				}
-				if(ing.quantity && !ing.unit) {
-					return '<li><span class="bold">' + ing.ingredient + '</span>' + ": " + ing.quantity + '</li>';
-				}
-				if(ing.quantite && !ing.unti) {
-					return '<li><span class="bold">' + ing.ingredient + '</span>' + ": " + ing.quantite + '</li>';
-				}
-			})
-		};
-
 		return ('<article class="card">' + 
 			'<div class="upCard"></div>' +
 			'<div class="downCard">' +
 				'<div class="titlePlusTime flex">' +
-					'<div class="titleMenu">' + recipe.name + '</div>' +
-					'<div class="menuTime"><i class="far fa-clock"></i>' + " " + recipe.time + " mn" + '</div>' +
+					'<div class="titleMenu">' + this.name + '</div>' +
+					'<div class="menuTime"><i class="far fa-clock"></i>' + " " + this.time + " mn" + '</div>' +
 				'</div>' +
 				'<div>' + 
 					'<div class="contentMenu flex">' +
 						'<ul>' +
-							displayIngredients().join("") +
+							this.displayIngredients() +
 						'</ul>' +
-						'<div class="recipe">' + recipe.description + '</div>' +
+						'<div class="recipe">' + this.description + '</div>' +
 					'</div>' +
 				'</div>' +
 			'</div>' +
 		'</article>'
 		)
-}).join("");
+	}
+}
+
 
 
 
