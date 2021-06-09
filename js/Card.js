@@ -31,7 +31,7 @@ class Card {
 			if(ing.quantity && !ing.unit) {
 				return '<li><span class="bold">' + ing.ingredient + '</span>' + ": " + ing.quantity + '</li>';
 			}
-			if(ing.quantite && !ing.unti) {
+			if(ing.quantite && !ing.unit) {
 				return '<li><span class="bold">' + ing.ingredient + '</span>' + ": " + ing.quantite + '</li>';
 			}
 		}).join('');

@@ -14,6 +14,7 @@ class Appliances {
 				return '<p id="appliance' + i + '">' + appliance + '</p>';
 			}).join('');
 	}
+
 	// displaySortedAppliances(sortedData) { // ??? dans l'idée de l'envoi d'un tableau trié dans les algos
 	// 	console.log(sortedData);
 	// 	return this.containerAppliances.innerHTML = 
@@ -21,6 +22,7 @@ class Appliances {
 	// 			return '<p>' + appliance + '</p>';
 	// 		}).join('');
 	// }
+	
 	sortKeywords() {
 		
 	}

@@ -14,6 +14,7 @@ class Ustensils {
 				return '<p id="ustensil' + i + '">' + ustensil + '</p>';
 			}).join('');
 	}
+
 	// displaySortedUstensils(sortedData) { // ??? dans l'idée de l'envoi d'un tableau trié dans les algos
 	// 	console.log(sortedData);
 	// 	return this.containerUstensils.innerHTML = 
@@ -21,6 +22,7 @@ class Ustensils {
 	// 			return '<p>' + ustensil + '</p>';
 	// 		}).join('');
 	// }
+	
 	sortKeywords() {
 		
 	}
