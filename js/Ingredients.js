@@ -1,4 +1,4 @@
-
+  
 class Ingredients {
 	constructor(ingredients) {
 		this.data = ingredients;
@@ -16,60 +16,6 @@ class Ingredients {
 				return '<p id="ingredient' + i + '">' + ingredient + '</p>';
 			}).join('');
 	}
-	listenInputAndSortKeywords() {
-		this.input.addEventListener("input", (event) => {
-			for(const ingredient of this.data) {
-				const regex = new RegExp(/ /);
-				//const regex2 = new RegExp(/d'/);
-				let result = ingredient.split(regex);
-				// manque les autres tris, soit des regex si c'est possible soit ... >>>
-				console.log(result);
-				for(const word of result) {
-					// >>> ... un switch case (la, en, au etc)
-					// par exemple :
-					if(event.target.value == "la") {
-						return;
-					}
-					// ... et
-					if(event.target.value == word) {
-						this.dataSortedByInput.push(ingredient);
-						this.containerIngredients.innerHTML = 
-							this.dataSortedByInput.map(ingredient => {
-								return  '<p id="' + ingredient + '">' + ingredient + '</p>';
-							}).join('');		
-					}
-				}
-				// ... et
-				if(event.target.value == "") {
-					this.dataSortedByInput = [];
-					this.displayIngredients();
-				}
-			}
-			// découper avec une autre méthode peut etre
-			for(const ingredient of this.dataSortedByInput) {
-				document.getElementById(ingredient).addEventListener("click", (event) => {
-					selectedKeywords.push({"name": event.target.innerText, "color": "primary"});
-					this.containerKeywords.innerHTML = 
-						selectedKeywords.map(element => {
-							return '<div id="' + element.name + '" class="keyword bg-' + element.color + ' flex"><p>' + element.name + '</p><div><i class="far fa-times-circle"></i></div></div>';
-						}).join('');
-
-					this.displayIngredients();
-					this.input.value = "";
-					this.closeKeyword();
-				})
-			}
-		})
-	}
-
-	// displaySortedIngredients(dataSortedByMainSearch) { // ??? dans l'idée de l'envoi d'un tableau dans l'input principal de la page
-	// 	console.log(dataSortedByMainSearch);
-	// 	return this.containerIngredients.innerHTML = 
-	// 		this.sortedData.map(ingredient => {
-	// 			return '<p>' + ingredient + '</p>';
-	// 		}).join('');
-	// }
-
 	clickAndDisplayKeyword() {
 		for(let i = 1; i <= this.data.length; i++) {
 			document.getElementById("ingredient" + i + "").addEventListener("click", (event) => {
@@ -80,6 +26,58 @@ class Ingredients {
 						return '<div id="' + element.name + '" class="keyword bg-' + element.color + ' flex"><p>' + element.name + '</p><div><i class="far fa-times-circle"></i></div></div>';
 					}).join('');
 					this.closeKeyword();	
+			});
+		}
+	}
+	listenInputAndDisplaySortedKeywords() {
+		this.input.addEventListener("input", (event) => {
+			for(const ingredient of this.data) {
+				const regex1 = new RegExp(/d'/);
+				const regex2 = new RegExp(/ /);
+				let resultWithoutD = ingredient.replace(regex1, "");
+				let result = resultWithoutD.split(regex2);
+				for(const word of result) {
+					if(event.target.value == word) {
+						this.dataSortedByInput.push(ingredient);
+						this.containerIngredients.innerHTML = 
+							this.dataSortedByInput.map(ingredient => {
+								return  '<p id="' + ingredient + '">' + ingredient + '</p>';
+							}).join('');
+					}
+					if(event.target.value == "") {
+						this.dataSortedByInput = [];
+						this.displayIngredients();
+					}
+					if(event.target.value == "la") {
+						return;
+					}
+					if(event.target.value == "en") {
+						return;
+					}
+					if(event.target.value == "au") {
+						return;
+					}
+					if(event.target.value == "a") {
+						return;
+					}
+					if(event.target.value == "ou") {
+						return;
+					}	
+				}
+			}
+		});
+	}
+	clickAndDisplaySortedKeyword() { 
+		for(const ingredient of this.dataSortedByInput) {
+			document.getElementById(ingredient).addEventListener("click", (event) => {
+				selectedKeywords.push({"name": event.target.innerText, "color": "primary"});
+				this.containerKeywords.innerHTML = 
+					selectedKeywords.map(element => {
+						return '<div id="' + element.name + '" class="keyword bg-' + element.color + ' flex"><p>' + element.name + '</p><div><i class="far fa-times-circle"></i></div></div>';
+					}).join('');
+				this.displayIngredients();
+				this.input.value = "";
+				this.closeKeyword();
 			});
 		}
 	}
@@ -100,8 +98,16 @@ class Ingredients {
 					return '<div id="' + element.name + '" class="keyword bg-' + element.color + ' flex"><p>' + element.name + '</p><div><i class="far fa-times-circle"></i></div></div>';	
 				}).join('');
 				this.closeKeyword();
-			})
+			});
 		}
 	}
+	// displaySortedIngredients(dataSortedByMainSearch) { // ??? dans l'idée de l'envoi d'un tableau dans l'input principal de la page
+	// 	console.log(dataSortedByMainSearch);
+	// 	return this.containerIngredients.innerHTML = 
+	// 		this.sortedData.map(ingredient => {
+	// 			return '<p>' + ingredient + '</p>';
+	// 		}).join('');
+	// }
 }
+
 
