@@ -1,34 +1,36 @@
 
-class Appliances {
-	constructor(appliances) {
-		this.data = appliances;
-		this.dataSortedByInput = [];
+class Button {
+	constructor(type, color, data) {
+		this.type = type;
+		this.color = color;
+		this.data = data;
+		this.dataSortedByInput = []; 
 		this.dataSortedByMainSearch = []; // ???
 		this.containerKeywords = document.getElementById("containerKeywords");
-		this.input = document.getElementById("searchInMenuAppliances");
-		this.containerAppliances = document.getElementById("containerAppliances");
+		this.input = document.getElementById("searchInDataButton" + this.type); 
+		this.containerElements = document.getElementById("container" + this.type);
 	}
-	displayAppliances() {
+	displayElements() {
 		let i = 0;
-		this.containerAppliances.innerHTML = 
-			this.data.map(appliance => {
+		this.containerElements.innerHTML =
+			this.data.map(element => {
 				i++;
-				return '<p id="appliance' + i + '">' + appliance + '</p>';
+				return '<p id="' + this.type.toLowerCase() + i + '">' + element + '</p>';
 			}).join('');
 		this.clickAndDisplayKeyword();
 	}
 	clickAndDisplayKeyword() {
 		for(let i = 1; i <= this.data.length; i++) {
-			document.getElementById("appliance" + i + "").addEventListener("click", (event) => {
-				selectedKeywords.push({"name": event.target.innerText, "color": "danger"});
-				console.log(selectedKeywords);
+			document.getElementById(this.type.toLowerCase() + i).addEventListener("click", (event) => {
+				main.selectedKeywords.push({"name": event.target.innerText, "color": this.color});
+				console.log(main.selectedKeywords);
 				this.containerKeywords.innerHTML = 
-					selectedKeywords.map(element => {
+					main.selectedKeywords.map(element => {
 						return '<div id="' + element.name + '" class="keyword bg-' + element.color + ' flex"><p>' + element.name + '</p><div><i class="far fa-times-circle"></i></div></div>';
 					}).join('');
-				this.closeKeyword();
+					this.closeKeyword();	
 			});
-		}	
+		}
 	}
 	// Rectification: les mots restants dépendent apparemment de la frappe dans l'input...
 	// Passer tous les keywords en string (sans espace, sans de, en, d', etc pour alléger la recherche)
@@ -73,40 +75,39 @@ class Appliances {
 		
 		this.input.addEventListener("input", (event) => {
 			this.dataSortedByInput = [];
-			for(const appliance of this.data) {
+			for(const element of this.data) {
 				const regex1 = new RegExp(/d'/);
 				const regex2 = new RegExp(/ /);
-				let resultWithoutD = appliance.replace(regex1, "");
+				let resultWithoutD = element.replace(regex1, "");
 				let result = resultWithoutD.split(regex2);
 				for(const word of result) {
 					let splitted = word.split('');
 					if(event.target.value == splitted.splice(0, event.target.value.length).join('')) {
-						this.dataSortedByInput.push(appliance);
-						this.containerAppliances.innerHTML = 
-							this.dataSortedByInput.map(appliance => {
-								return  '<p id="' + appliance + '">' + appliance + '</p>';
+						this.dataSortedByInput.push(element);
+						this.containerElements.innerHTML = 
+							this.dataSortedByInput.map(element => {
+								return  '<p id="' + element + '">' + element + '</p>';
 							}).join('');
 					}
 				}
 			}	
 			if(event.target.value == "") {
 				this.dataSortedByInput = [];
-				this.displayAppliances();
+				this.displayElements();
 			}
 			this.clickAndDisplaySortedKeyword(); 
 		});
 	}
 	clickAndDisplaySortedKeyword() { 
-		console.log("clickAndDisplaySortedKeyword()");
-		for(const appliance of this.dataSortedByInput) {
-			document.getElementById(appliance).addEventListener("click", (event) => {
-				console.log("click on " + appliance);
-				selectedKeywords.push({"name": event.target.innerText, "color": "danger"});
+		for(const element of this.dataSortedByInput) {
+			document.getElementById(element).addEventListener("click", (event) => {
+				console.log("click on " + element);
+				main.selectedKeywords.push({"name": event.target.innerText, "color": this.color});
 				this.containerKeywords.innerHTML = 
-					selectedKeywords.map(element => {
+					main.selectedKeywords.map(element => {
 						return '<div id="' + element.name + '" class="keyword bg-' + element.color + ' flex"><p>' + element.name + '</p><div><i class="far fa-times-circle"></i></div></div>';
 					}).join('');
-				this.displayAppliances();
+				this.displayElements();
 				this.input.value = "";
 				this.closeKeyword();
 			});
@@ -114,30 +115,51 @@ class Appliances {
 	}
 	closeKeyword() {
 		console.log("closeKeyword()");
-		console.log(selectedKeywords);
-		for(const keyword of selectedKeywords) {
+		console.log(main.selectedKeywords);
+		for(const keyword of main.selectedKeywords) {
 			console.log(keyword.name);
 			let id = keyword.name.toString();
 			console.log(id);
 			document.getElementById(id).addEventListener("click", () => {
 				console.log(id + " clicked !!!");
-				let index = selectedKeywords.indexOf(keyword);
+				let index = main.selectedKeywords.indexOf(keyword);
 				console.log(index);
-				selectedKeywords.splice(index, 1);
+				main.selectedKeywords.splice(index, 1);
 				this.containerKeywords.innerHTML =
-				selectedKeywords.map(element => {
+				main.selectedKeywords.map(element => {
 					return '<div id="' + element.name + '" class="keyword bg-' + element.color + ' flex"><p>' + element.name + '</p><div><i class="far fa-times-circle"></i></div></div>';	
 				}).join('');
 				this.closeKeyword();
-			})
+			});
 		}
 	}
-	// displaySortedAppliances(sortedData) { // ??? dans l'idée de l'envoi d'un tableau trié dans les algos
-	// 	console.log(sortedData);
-	// 	return this.containerAppliances.innerHTML = 
-	// 		this.sortedData.map(appliance => {
-	// 			return '<p>' + appliance + '</p>';
+	// displaySortedIngredients(dataSortedByMainSearch) { // ??? dans l'idée de l'envoi d'un tableau dans l'input principal de la page
+	// 	console.log(dataSortedByMainSearch);
+	// 	return this.containerIngredients.innerHTML = 
+	// 		this.sortedData.map(ingredient => {
+	// 			return '<p>' + ingredient + '</p>';
 	// 		}).join('');
 	// }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

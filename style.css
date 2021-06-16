@@ -74,7 +74,7 @@ li {
 .dropdown {
 	margin: auto 1% auto 0;
 }
-#containerIngredients {
+#containerIngredient {
 	width: 600px;
 	height: 500px;
 	padding: 10px 20px;
@@ -82,7 +82,7 @@ li {
 	overflow: auto;
 	color: white;
 }
-#containerAppliances {
+#containerAppliance {
 	width: 600px;
 	height: 500px;
 	padding: 10px 20px;
@@ -90,7 +90,7 @@ li {
 	overflow: auto;
 	color: white;
 }
-#containerUstensils {
+#containerUstensil {
 	width: 600px;
 	height: 500px;
 	padding: 10px 20px;
