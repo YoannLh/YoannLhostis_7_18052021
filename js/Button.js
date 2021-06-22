@@ -9,6 +9,9 @@ class Button {
 		this.containerKeywords = document.getElementById("containerKeywords");
 		this.input = document.getElementById("searchInDataButton" + this.type); 
 		this.containerElements = document.getElementById("container" + this.type);
+
+		this.cards = [];
+		this.containerCards = document.getElementById("containerCards");
 	}
 	displayElements() {
 		let i = 0;
@@ -29,6 +32,8 @@ class Button {
 						return '<div id="' + element.name + '" class="keyword bg-' + element.color + ' flex"><p>' + element.name + '</p><div><i class="far fa-times-circle"></i></div></div>';
 					}).join('');
 					this.closeKeyword();	
+
+					this.displayCards();
 			});
 		}
 	}
@@ -110,6 +115,8 @@ class Button {
 				this.displayElements();
 				this.input.value = "";
 				this.closeKeyword();
+
+				this.displayCards();
 			});
 		}
 	}
@@ -130,6 +137,8 @@ class Button {
 					return '<div id="' + element.name + '" class="keyword bg-' + element.color + ' flex"><p>' + element.name + '</p><div><i class="far fa-times-circle"></i></div></div>';	
 				}).join('');
 				this.closeKeyword();
+
+				this.displayCards();
 			});
 		}
 	}
@@ -140,6 +149,59 @@ class Button {
 	// 			return '<p>' + ingredient + '</p>';
 	// 		}).join('');
 	// }
+	displayCards() {
+		String.prototype.sansAccent = function(){
+	   		var accent = [
+		        /[\300-\306]/g, /[\340-\346]/g, // A, a
+	    	    /[\310-\313]/g, /[\350-\353]/g, // E, e
+		        /[\314-\317]/g, /[\354-\357]/g, // I, i
+	    	    /[\322-\330]/g, /[\362-\370]/g, // O, o
+		        /[\331-\334]/g, /[\371-\374]/g, // U, u
+	    	    /[\321]/g, /[\361]/g, // N, n
+		        /[\307]/g, /[\347]/g, // C, c
+	    	];
+	    	var noaccent = ['A','a','E','e','I','i','O','o','U','u','N','n','C','c'];
+	    	var str = this;
+	    	for(var i = 0; i < accent.length; i++){
+	        	str = str.replace(accent[i], noaccent[i]);
+	    	}
+	    	return str;
+		}
+		
+		// IL FAUT DESTACKER LES INGREDIENTS ET OBTENIR DES RESULTATS CROISES DES KEYWORDS
+		// EXEMPLE AVEC TOMATE ET CONCOMBRE
+		const regex2 = new RegExp(/ /);
+		this.cards = [];
+		for(const recipe of main.data) {
+			for(const item of recipe.ingredients) {  
+				for(const element of main.selectedKeywords) { 
+					let cleaned = item.ingredient.toLowerCase().sansAccent();
+					//let cleaned2 = this.cleanAccent(cleaned);
+					let result = cleaned.split(regex2);
+					console.log(element.name);
+					console.log(result);
+					for(const word of result) {
+						if(element.name == word) {
+							console.log("ok");
+							const card = new Card(
+								recipe.id,
+								recipe.name,
+								recipe.ingredients,
+								recipe.time,
+								recipe.description,
+								recipe.appliance,
+								recipe.ustensils);
+							this.cards.push(card);
+							this.containerCards.innerHTML = 
+								this.cards.map(card => {
+									return card.render();
+								}).join('');
+						}
+					}
+				}			
+			}
+		}
+	}
 }
 
 
