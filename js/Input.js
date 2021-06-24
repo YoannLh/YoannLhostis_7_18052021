@@ -31,13 +31,12 @@ class Input {
 			event.preventDefault();
 			// Supérieur à 3 caractères >>> lance tri
 			if(event.target.value.length >= 3) {
-				
+				this.cards = [];
+				this.sortTitles();
 				this.sortIngredients();
-
-				this.sortTitles();	
 				this.sortDescriptions();
 			}
-			if(event.target.value.length < 3) {
+			if(event.target.value.length >= 3 && this.cards.length == 0) {
 				this.containerCards.innerHTML = 
 					'<p style="margin: auto; color: red">Aucune recette ne correspond à votre critère... vous pouvez chercher « tarte aux pommes », « poisson », etc';
 			}
@@ -49,7 +48,6 @@ class Input {
 	sortTitles() {
 		console.log("titles");
 		const regex2 = new RegExp(/ /);
-		this.cards = [];
 		for(const recipe of main.data) { 
 			let cleaned = recipe.name.toLowerCase();
 			let cleaned2 = this.cleanAccent(cleaned);
@@ -57,6 +55,7 @@ class Input {
 			for(const word of result) {
 				let splitted = word.split('');
 				if(event.target.value == splitted.splice(0, event.target.value.length).join('')) {
+					console.log(recipe.name);
 					const card = new Card(
 						recipe.id,
 						recipe.name,
@@ -66,6 +65,7 @@ class Input {
 						recipe.appliance,
 						recipe.ustensils);
 					this.cards.push(card);
+
 					this.containerCards.innerHTML = 
 						this.cards.map(card => {
 							return card.render();
@@ -77,7 +77,6 @@ class Input {
 	sortIngredients() {
 		console.log("ing");
 		const regex2 = new RegExp(/ /);
-		this.cards = [];
 		for(const recipe of main.data) { 
 			for(const item of recipe.ingredients) {
 				let cleaned = item.ingredient.toLowerCase();
@@ -86,6 +85,7 @@ class Input {
 				for(const word of result) {
 					let splitted = word.split('');
 					if(event.target.value == splitted.splice(0, event.target.value.length).join('')) {
+						console.log(recipe.name);
 						const card = new Card(
 							recipe.id,
 							recipe.name,
@@ -95,6 +95,7 @@ class Input {
 							recipe.appliance,
 							recipe.ustensils);
 						this.cards.push(card);
+
 						this.containerCards.innerHTML = 
 							this.cards.map(card => {
 								return card.render();
@@ -107,7 +108,6 @@ class Input {
 	sortDescriptions() {
 		console.log("desc");
 		const regex2 = new RegExp(/ /);
-		this.cards = [];
 		for(const recipe of main.data) {
 			let cleaned = recipe.description.toLowerCase();
 			let cleaned2 = this.cleanAccent(cleaned);
@@ -115,6 +115,7 @@ class Input {
 			for(const word of result) {
 				let splitted = word.split('');
 				if(event.target.value == splitted.splice(0, event.target.value.length).join('')) {
+					console.log(recipe.name);
 					const card = new Card(
 						recipe.id,
 						recipe.name,
@@ -124,6 +125,7 @@ class Input {
 						recipe.appliance,
 						recipe.ustensils);
 					this.cards.push(card);
+
 					this.containerCards.innerHTML = 
 						this.cards.map(card => {
 							return card.render();
