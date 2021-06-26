@@ -9,7 +9,6 @@ class Button {
 		this.containerKeywords = document.getElementById("containerKeywords");
 		this.input = document.getElementById("searchInDataButton" + this.type); 
 		this.containerElements = document.getElementById("container" + this.type);
-
 		this.cards = [];
 		this.containerCards = document.getElementById("containerCards");
 	}
@@ -37,47 +36,7 @@ class Button {
 			});
 		}
 	}
-	// Rectification: les mots restants dépendent apparemment de la frappe dans l'input...
-	// Passer tous les keywords en string (sans espace, sans de, en, d', etc pour alléger la recherche)
-	// => 'j'u's'c'i't'r'o'n' et checker occurences ???
 	listenInputAndDisplaySortedKeywords() {
-		// this.input.addEventListener("input", (event) => {
-		// 	for(const ingredient of this.data) {
-		// 		const regex1 = new RegExp(/d'/);
-		// 		const regex2 = new RegExp(/ /);
-		// 		let resultWithoutD = ingredient.replace(regex1, "");
-		// 		let result = resultWithoutD.split(regex2);
-		// 		for(const word of result) {
-		// 			if(event.target.value == word) {
-		// 				this.dataSortedByInput.push(ingredient);
-		// 				this.containerIngredients.innerHTML = 
-		// 					this.dataSortedByInput.map(ingredient => {
-		// 						return  '<p id="' + ingredient + '">' + ingredient + '</p>';
-		// 					}).join('');
-		// 			}
-		// 			if(event.target.value == "") {
-		// 				this.dataSortedByInput = [];
-		// 				this.displayIngredients();
-		// 			}
-		// 			if(event.target.value == "la") {
-		// 				return;
-		// 			}
-		// 			if(event.target.value == "en") {
-		// 				return;
-		// 			}
-		// 			if(event.target.value == "au") {
-		// 				return;
-		// 			}
-		// 			if(event.target.value == "a") {
-		// 				return;
-		// 			}
-		// 			if(event.target.value == "ou") {
-		// 				return;
-		// 			}	
-		// 		}
-		// 	}
-		// });
-		
 		this.input.addEventListener("input", (event) => {
 			this.dataSortedByInput = [];
 			for(const element of this.data) {
@@ -142,13 +101,6 @@ class Button {
 			});
 		}
 	}
-	// displaySortedIngredients(dataSortedByMainSearch) { // ??? dans l'idée de l'envoi d'un tableau dans l'input principal de la page
-	// 	console.log(dataSortedByMainSearch);
-	// 	return this.containerIngredients.innerHTML = 
-	// 		this.sortedData.map(ingredient => {
-	// 			return '<p>' + ingredient + '</p>';
-	// 		}).join('');
-	// }
 	displayCards() {
 		String.prototype.sansAccent = function(){
 	   		var accent = [
@@ -167,7 +119,6 @@ class Button {
 	    	}
 	    	return str;
 		}
-		
 		// IL FAUT DESTACKER LES INGREDIENTS ET OBTENIR DES RESULTATS CROISES DES KEYWORDS
 		// EXEMPLE AVEC TOMATE ET CONCOMBRE
 		const regex2 = new RegExp(/ /);
