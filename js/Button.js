@@ -31,7 +31,6 @@ class Button {
 						return '<div id="' + element.name + '" class="keyword bg-' + element.color + ' flex"><p>' + element.name + '</p><div><i class="far fa-times-circle"></i></div></div>';
 					}).join('');
 					this.closeKeyword();	
-
 					this.displayCards();
 			});
 		}
@@ -74,7 +73,6 @@ class Button {
 				this.displayElements();
 				this.input.value = "";
 				this.closeKeyword();
-
 				this.displayCards();
 			});
 		}
@@ -96,7 +94,6 @@ class Button {
 					return '<div id="' + element.name + '" class="keyword bg-' + element.color + ' flex"><p>' + element.name + '</p><div><i class="far fa-times-circle"></i></div></div>';	
 				}).join('');
 				this.closeKeyword();
-
 				this.displayCards();
 			});
 		}
@@ -119,8 +116,16 @@ class Button {
 	    	}
 	    	return str;
 		}
-		// IL FAUT DESTACKER LES INGREDIENTS ET OBTENIR DES RESULTATS CROISES DES KEYWORDS
+
+		// let deleteDoubles = (obj) => {
+		// 	for(const ing of ingredients) {
+
+		// 	}
+		// }
+
+		// IL FAUT DESTACKER LES CARDS ET OBTENIR DES RESULTATS CROISES DES KEYWORDS
 		// EXEMPLE AVEC TOMATE ET CONCOMBRE
+		// IL FAUT DONC TRIER THIS.CARDS OU EMPECHER LES PUSH SAUVAGES
 		const regex2 = new RegExp(/ /);
 		this.cards = [];
 		for(const recipe of main.data) {
@@ -129,8 +134,6 @@ class Button {
 					let cleaned = item.ingredient.toLowerCase().sansAccent();
 					//let cleaned2 = this.cleanAccent(cleaned);
 					let result = cleaned.split(regex2);
-					console.log(element.name);
-					console.log(result);
 					for(const word of result) {
 						if(element.name == word) {
 							console.log("ok");
@@ -143,15 +146,17 @@ class Button {
 								recipe.appliance,
 								recipe.ustensils);
 							this.cards.push(card);
-							this.containerCards.innerHTML = 
-								this.cards.map(card => {
-									return card.render();
-								}).join('');
+							
+							console.log(main.selectedKeywords);
 						}
 					}
 				}			
 			}
 		}
+		this.containerCards.innerHTML = 
+			this.cards.map(card => {
+				return card.render();
+			}).join('');
 	}
 }
 

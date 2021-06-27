@@ -115,8 +115,8 @@ class Input {
 	}
 	deleteDoubles() {
 		const cache = {};
-			this.cards = this.cards.filter((elem,index,array) => {
-				return cache[elem.id] ? 0 : cache[elem.id] = 1;
+		this.cards = this.cards.filter((elem,index,array) => {
+			return cache[elem.id] ? 0 : cache[elem.id] = 1;
 		});
 		this.containerCards.innerHTML = 
 			this.cards.map(card => {
