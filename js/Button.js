@@ -5,10 +5,12 @@ class Button {
 		this.color = color;
 		this.data = data;
 		this.dataSortedByInput = []; 
-		this.dataSortedByMainSearch = []; // ???
+		this.dataSortedByInputSearch = []; // ???
 		this.containerKeywords = document.getElementById("containerKeywords");
 		this.input = document.getElementById("searchInDataButton" + this.type); 
 		this.containerElements = document.getElementById("container" + this.type);
+		this.cards = [];
+		this.containerCards = document.getElementById("containerCards");
 	}
 	displayElements() {
 		let i = 0;
@@ -29,68 +31,34 @@ class Button {
 						return '<div id="' + element.name + '" class="keyword bg-' + element.color + ' flex"><p>' + element.name + '</p><div><i class="far fa-times-circle"></i></div></div>';
 					}).join('');
 					this.closeKeyword();	
+					this.displayCards();
 			});
 		}
 	}
-	// Rectification: les mots restants dépendent apparemment de la frappe dans l'input...
-	// Passer tous les keywords en string (sans espace, sans de, en, d', etc pour alléger la recherche)
-	// => 'j'u's'c'i't'r'o'n' et checker occurences ???
 	listenInputAndDisplaySortedKeywords() {
-		// this.input.addEventListener("input", (event) => {
-		// 	for(const ingredient of this.data) {
-		// 		const regex1 = new RegExp(/d'/);
-		// 		const regex2 = new RegExp(/ /);
-		// 		let resultWithoutD = ingredient.replace(regex1, "");
-		// 		let result = resultWithoutD.split(regex2);
-		// 		for(const word of result) {
-		// 			if(event.target.value == word) {
-		// 				this.dataSortedByInput.push(ingredient);
-		// 				this.containerIngredients.innerHTML = 
-		// 					this.dataSortedByInput.map(ingredient => {
-		// 						return  '<p id="' + ingredient + '">' + ingredient + '</p>';
-		// 					}).join('');
-		// 			}
-		// 			if(event.target.value == "") {
-		// 				this.dataSortedByInput = [];
-		// 				this.displayIngredients();
-		// 			}
-		// 			if(event.target.value == "la") {
-		// 				return;
-		// 			}
-		// 			if(event.target.value == "en") {
-		// 				return;
-		// 			}
-		// 			if(event.target.value == "au") {
-		// 				return;
-		// 			}
-		// 			if(event.target.value == "a") {
-		// 				return;
-		// 			}
-		// 			if(event.target.value == "ou") {
-		// 				return;
-		// 			}	
-		// 		}
-		// 	}
-		// });
-		
+		let filteredArray = [];
+		const regex1 = new RegExp(/d'/);
+		const regex2 = new RegExp(/ /);
 		this.input.addEventListener("input", (event) => {
 			this.dataSortedByInput = [];
 			for(const element of this.data) {
-				const regex1 = new RegExp(/d'/);
-				const regex2 = new RegExp(/ /);
 				let resultWithoutD = element.replace(regex1, "");
 				let result = resultWithoutD.split(regex2);
 				for(const word of result) {
 					let splitted = word.split('');
-					if(event.target.value == splitted.splice(0, event.target.value.length).join('')) {
+					if(event.target.value == splitted.splice(0, event.target.value.length).join('')
+					|| event.target.value == element.split('').splice(0, event.target.value.length).join('')) {
 						this.dataSortedByInput.push(element);
-						this.containerElements.innerHTML = 
-							this.dataSortedByInput.map(element => {
-								return  '<p id="' + element + '">' + element + '</p>';
-							}).join('');
+						filteredArray = this.dataSortedByInput.filter((ele, pos) => {
+    						return this.dataSortedByInput.indexOf(ele) == pos;
+						})
 					}
 				}
-			}	
+			}
+			this.containerElements.innerHTML = 
+				filteredArray.map(element => {
+					return  '<p id="' + element + '">' + element + '</p>';
+				}).join('');	
 			if(event.target.value == "") {
 				this.dataSortedByInput = [];
 				this.displayElements();
@@ -110,56 +78,107 @@ class Button {
 				this.displayElements();
 				this.input.value = "";
 				this.closeKeyword();
+				this.displayCards();
 			});
 		}
 	}
 	closeKeyword() {
-		console.log("closeKeyword()");
-		console.log(main.selectedKeywords);
+		console.log("close");
 		for(const keyword of main.selectedKeywords) {
-			console.log(keyword.name);
 			let id = keyword.name.toString();
-			console.log(id);
 			document.getElementById(id).addEventListener("click", () => {
-				console.log(id + " clicked !!!");
 				let index = main.selectedKeywords.indexOf(keyword);
-				console.log(index);
 				main.selectedKeywords.splice(index, 1);
 				this.containerKeywords.innerHTML =
 				main.selectedKeywords.map(element => {
 					return '<div id="' + element.name + '" class="keyword bg-' + element.color + ' flex"><p>' + element.name + '</p><div><i class="far fa-times-circle"></i></div></div>';	
 				}).join('');
 				this.closeKeyword();
+				this.displayCards();
 			});
 		}
 	}
-	// displaySortedIngredients(dataSortedByMainSearch) { // ??? dans l'idée de l'envoi d'un tableau dans l'input principal de la page
-	// 	console.log(dataSortedByMainSearch);
-	// 	return this.containerIngredients.innerHTML = 
-	// 		this.sortedData.map(ingredient => {
-	// 			return '<p>' + ingredient + '</p>';
-	// 		}).join('');
-	// }
+	displayCards() {
+		console.log("display");
+		String.prototype.sansAccent = function(){
+	   		var accent = [
+		        /[\300-\306]/g, /[\340-\346]/g, // A, a
+	    	    /[\310-\313]/g, /[\350-\353]/g, // E, e
+		        /[\314-\317]/g, /[\354-\357]/g, // I, i
+	    	    /[\322-\330]/g, /[\362-\370]/g, // O, o
+		        /[\331-\334]/g, /[\371-\374]/g, // U, u
+	    	    /[\321]/g, /[\361]/g, // N, n
+		        /[\307]/g, /[\347]/g, // C, c
+	    	];
+	    	var noaccent = ['A','a','E','e','I','i','O','o','U','u','N','n','C','c'];
+	    	var str = this;
+	    	for(var i = 0; i < accent.length; i++){
+	        	str = str.replace(accent[i], noaccent[i]);
+	    	}
+	    	return str;
+		}
+		//this.cards = [];
+		for(const recipe of main.data) {
+			let array = [];
+			for(const item of recipe.ingredients) {  
+				array.push(item.ingredient.toLowerCase().sansAccent());
+			}
+			for(const element of main.selectedKeywords) {
+				if(array.includes(element.name)) {
+					const card = new Card(
+						recipe.id,
+						recipe.name,
+						recipe.ingredients,
+						recipe.time,
+						recipe.description,
+						recipe.appliance,
+						recipe.ustensils);
+					this.cards.push(card);
+				}
+			}	
+			array = [];
+			this.sortByPresentsIngredients();
+		}
+	}
+	sortByPresentsIngredients() { 
+		for(const card of this.cards) {
+			let array = [];
+			for(const container of card.ingredients) {
+				array.push(container.ingredient.toLowerCase().sansAccent());
+			}
+			for(const element of main.selectedKeywords) {
+				if(!array.includes(element.name)) {
+					let index = this.cards.indexOf(card);
+					this.cards.splice(index, 1);
+				}
+			}
+			array = [];
+		}
+		// A éclaircir
+		const cache = {};
+		this.cards = this.cards.filter((elem, index, array) => {
+			return cache[elem.id] ? 0 : cache[elem.id] = 1;
+		});
+		this.containerCards.innerHTML = 
+			this.cards.map(card => {
+				return card.render();
+			}).join('');
+		if(main.selectedKeywords.length == 0) {
+			this.cards = [];
+			for(const recipe of recipes) {
+			const card = new Card(
+				recipe.id,
+				recipe.name,
+				recipe.ingredients,
+				recipe.time,
+				recipe.description,
+				recipe.appliance,
+				recipe.ustensils);
+			this.cards.push(card);
+		}
+		this.containerCards.innerHTML = this.cards.map(card => {
+			return card.render();
+		}).join('');
+		}
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
