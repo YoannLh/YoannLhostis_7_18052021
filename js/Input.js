@@ -30,11 +30,13 @@ class Input {
 			} 
 			// Si supérieur à 3 caractères >>> lance tri
 			if(event.target.value.length >= 3) {
+				console.time('input.listeningChanges()');
 				this.cards = [];
 				this.sortTitles();
 				this.sortIngredients();
 				this.sortDescriptions();
 				this.deleteDoubles();
+				console.timeEnd('input.listeningChanges()');
 			}
 			if(event.target.value.length >= 3 && this.cards.length == 0) {
 				this.containerCards.innerHTML = 
@@ -44,14 +46,15 @@ class Input {
 	}
 	sortTitles() {
 		console.log("titles");
-		const regex = RegExp(/ /);
+		//const regex = RegExp(/ /);
 		for(const recipe of main.data) { 
 			let cleaned = recipe.name.toLowerCase();
 			let cleaned2 = this.cleanAccent(cleaned);
-			let result = cleaned2.split(regex);
-			for(const word of result) {
-				let splitted = word.split('');
-				if(event.target.value == splitted.splice(0, event.target.value.length).join('')) {
+			//let result = cleaned2.split(regex);
+			//for(const letter of cleaned2) {
+			for(let i = 0; i <= cleaned2.length; i++) { 
+				let splitted = cleaned2.split('');
+				if(event.target.value == splitted.splice(i, event.target.value.length).join('')) {
 					const card = new Card(
 						recipe.id,
 						recipe.name,
@@ -74,8 +77,37 @@ class Input {
 				let cleaned2 = this.cleanAccent(cleaned);
 				let result = cleaned2.split(regex);
 				for(const word of result) {
+					for(let i = 0; i <= word.length; i++) { 
+						let splitted = word.split('');
+						if(event.target.value == splitted.splice(i, event.target.value.length).join('')
+						|| event.target.value == cleaned2.split('').splice(i, event.target.value.length).join('')) {
+							const card = new Card(
+								recipe.id,
+								recipe.name,
+								recipe.ingredients,
+								recipe.time,
+								recipe.description,
+								recipe.appliance,
+								recipe.ustensils);
+							this.cards.push(card);
+						}
+					}
+				}
+			}			
+		}
+	}
+	sortDescriptions() {
+		console.log("desc");
+		const regex = RegExp(/ /);
+		for(const recipe of main.data) {
+			let cleaned = recipe.description.toLowerCase();
+			let cleaned2 = this.cleanAccent(cleaned);
+			let result = cleaned2.split(regex);
+			for(const word of result) {
+				for(let i = 0; i <= word.length; i++) { 
 					let splitted = word.split('');
-					if(event.target.value == splitted.splice(0, event.target.value.length).join('')) {
+					if(event.target.value == splitted.splice(i, event.target.value.length).join('')
+					|| event.target.value == cleaned2.split('').splice(i, event.target.value.length).join('')) {
 						const card = new Card(
 							recipe.id,
 							recipe.name,
@@ -90,32 +122,9 @@ class Input {
 			}			
 		}
 	}
-	sortDescriptions() {
-		console.log("desc");
-		const regex = RegExp(/ /);
-		for(const recipe of main.data) {
-			let cleaned = recipe.description.toLowerCase();
-			let cleaned2 = this.cleanAccent(cleaned);
-			let result = cleaned2.split(regex);
-			for(const word of result) {
-				let splitted = word.split('');
-				if(event.target.value == splitted.splice(0, event.target.value.length).join('')) {
-					const card = new Card(
-						recipe.id,
-						recipe.name,
-						recipe.ingredients,
-						recipe.time,
-						recipe.description,
-						recipe.appliance,
-						recipe.ustensils);
-					this.cards.push(card);
-				}
-			}			
-		}
-	}
 	deleteDoubles() {
 		const cache = {};
-		this.cards = this.cards.filter((elem,index,array) => {
+		this.cards = this.cards.filter((elem, index, array) => {
 			return cache[elem.id] ? 0 : cache[elem.id] = 1;
 		});
 		this.containerCards.innerHTML = 
