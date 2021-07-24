@@ -32,17 +32,39 @@ class Input {
 			recipes.push(recipe);
 		}
 		for(const recipe of recipes) {
-			if(event.target.value == recipe.name.toLowerCase().split('').splice(0, event.target.value.length).join('')
-			|| event.target.value == recipe.description.toLowerCase().split('').splice(0, event.target.value.length).join('')) {
-				const card = new Card(
-					recipe.id,
-					recipe.name,
-					recipe.ingredients,
-					recipe.time,
-					recipe.description,
-					recipe.appliance,
-					recipe.ustensils);
-				this.cards.push(card);
+			for(let i = 0; i <= recipe.name.length; i++) { 
+				if(event.target.value == recipe.name.toLowerCase().split('').splice(i, event.target.value.length).join('')) {
+					const card = new Card(
+						recipe.id,
+						recipe.name,
+						recipe.ingredients,
+						recipe.time,
+						recipe.description,
+						recipe.appliance,
+						recipe.ustensils);
+					this.cards.push(card);
+				}
+			}
+			this.containerCards.innerHTML = 
+			this.cards.map(card => {
+				return card.render();
+			}).join('');	
+		}
+		for(const recipe of recipes) {
+			for(const ingredient of recipe.ingredients) {
+				for(let i = 0; i <= ingredient.ingredient.length; i++) { 
+					if(event.target.value == ingredient.ingredient.toLowerCase().split('').splice(i, event.target.value.length).join('')) {
+						const card = new Card(
+							recipe.id,
+							recipe.name,
+							recipe.ingredients,
+							recipe.time,
+							recipe.description,
+							recipe.appliance,
+							recipe.ustensils);
+						this.cards.push(card);
+					}
+				}
 			}
 			this.containerCards.innerHTML = 
 			this.cards.map(card => {
@@ -50,8 +72,8 @@ class Input {
 			}).join('');
 		}
 		for(const recipe of recipes) {
-			for(const ingredient of recipe.ingredients) {
-				if(event.target.value == ingredient.ingredient.toLowerCase().split('').splice(0, event.target.value.length).join('')) {
+			for(let i = 0; i <= recipe.description.length; i++) { 
+				if(event.target.value == recipe.description.toLowerCase().split('').splice(i, event.target.value.length).join('')) {
 					const card = new Card(
 						recipe.id,
 						recipe.name,
