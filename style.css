@@ -74,25 +74,39 @@ li {
 .dropdown {
 	margin: auto 1% auto 0;
 }
+.dropdown input {
+	width: 50%;
+	margin-left: 2%;
+	border-style: hidden;
+	color: rgba(230, 230, 230, 0.8);
+}
+.dropdown input::placeholder {
+	color: rgba(230, 230, 230, 0.8);
+}
+.dropdown input:focus {
+	outline: none;
+}
 #containerIngredient {
-	width: 600px;
-	height: 500px;
+	width: 800px;
+	height: 480px;
 	padding: 10px 20px;
+	
+	
 	flex-direction: column;
 	overflow: auto;
 	color: white;
 }
 #containerAppliance {
-	width: 600px;
-	height: 500px;
+	width: 800px;
+	height: 480px;
 	padding: 10px 20px;
 	flex-direction: column;
 	overflow: auto;
 	color: white;
 }
 #containerUstensil {
-	width: 600px;
-	height: 500px;
+	width: 800px;
+	height: 480px;
 	padding: 10px 20px;
 	flex-direction: column;
 	overflow: auto;
