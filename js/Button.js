@@ -2,6 +2,7 @@
 class Button {
 	constructor(type, color, data) {
 		this.type = type;
+		this.element = { 'element' : "ingredients" };
 		this.color = color;
 		this.data = data;
 		this.dataSortedByInput = []; 
@@ -13,6 +14,7 @@ class Button {
 		this.containerCards = document.getElementById("containerCards");
 	}
 	displayElements() {
+		console.log(this.element);
 		let i = 0;
 		this.containerElements.innerHTML =
 			this.data.map(element => {

@@ -1,5 +1,5 @@
 
-class Card {
+class BigCard {
 	constructor(id, name, ingredients, time, description, appliance, ustensils) {
 		this.id = id;
 		this.name = name;
@@ -8,6 +8,26 @@ class Card {
 		this.description = description;
 		this.appliance = appliance;
 		this.ustensils = ustensils;
+		this.container = document.getElementById("mainOfBigCard");
+	}
+	createBigCard() {
+		let params = new URLSearchParams(document.location.search.substring(1));
+		let idInURL = params.get("id");
+		console.log(idInURL);
+		for(const recipe of recipes) {
+			if(idInURL == recipe.id) {
+				console.log("id ok / " + idInURL);
+				const createdBigCard = new BigCard(
+					recipe.id, 
+					recipe.name, 
+					recipe.ingredients, 
+					recipe.time, 
+					recipe.description, 
+					recipe.appliance, 
+					recipe.ustensils);
+				createdBigCard.render();
+			}
+		}
 	}
 	displayIngredients() {
 		return this.ingredients.map(ing => {
@@ -37,45 +57,24 @@ class Card {
 		}).join('');
 	}
 	render() {
-		return ('<a class="card" href="./recettes/recette.html?id=' + this.id + '">' +
-					'<div class="upCard"></div>' +
-					'<div class="downCard">' +
-						'<div class="titlePlusTime flex">' +
-							'<div class="titleMenu">' + this.name + '</div>' +
-							'<div class="menuTime"><i class="far fa-clock"></i>' + " " + this.time + " mn" + '</div>' +
-						'</div>' +
-						'<div>' + 
-							'<div class="contentMenu flex">' +
-								'<ul>' +
-									this.displayIngredients() +
-								'</ul>' +
-								'<div class="recipe">' + this.description + '</div>' +
-							'</div>' +
-						'</div>' +
-					'</div>' +	
-				'</a>'
-		)
+		console.log(this.description);
+		this.container.innerHTML =
+		
+			'<div class="titleBigCardAndTime flex">' +
+				'<h1 id="titleBigCard">' + this.name + '</h1>' +
+				'<div class="timeBigCard flex">' +
+					'<i class="far fa-clock"></i>' +
+					'<div>' + this.time + ' mn</div>' +
+				'</div>' +
+			'</div>' +
+			'<div class="ingredientsOfBigCard">' +
+				this.displayIngredients() +
+			'</div>' +
+			'<div class="descriptionOfBigCard">' +
+				this.description +
+			'</div>';
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+const bigCard = new BigCard();
+bigCard.createBigCard();
