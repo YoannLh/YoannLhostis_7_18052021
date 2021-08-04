@@ -2,6 +2,7 @@
 class Button {
 	constructor(type, color, data) {
 		this.type = type;
+		this.element = { 'element' : "ingredients" };
 		this.color = color;
 		this.data = data;
 		this.dataSortedByInput = []; 
@@ -13,6 +14,7 @@ class Button {
 		this.containerCards = document.getElementById("containerCards");
 	}
 	displayElements() {
+		console.log(this.element);
 		let i = 0;
 		this.containerElements.innerHTML =
 			this.data.map(element => {
@@ -125,6 +127,7 @@ class Button {
 			}
 			for(const element of main.selectedKeywords) {
 				if(array.includes(element.name)) {
+					console.log("included " + element.name);
 					const card = new Card(
 						recipe.id,
 						recipe.name,
@@ -148,6 +151,7 @@ class Button {
 			}
 			for(const element of main.selectedKeywords) {
 				if(!array.includes(element.name)) {
+					console.log("not included : " + element.name);
 					let index = this.cards.indexOf(card);
 					this.cards.splice(index, 1);
 				}
@@ -166,19 +170,19 @@ class Button {
 		if(main.selectedKeywords.length == 0) {
 			this.cards = [];
 			for(const recipe of recipes) {
-			const card = new Card(
-				recipe.id,
-				recipe.name,
-				recipe.ingredients,
-				recipe.time,
-				recipe.description,
-				recipe.appliance,
-				recipe.ustensils);
-			this.cards.push(card);
-		}
-		this.containerCards.innerHTML = this.cards.map(card => {
-			return card.render();
-		}).join('');
+				const card = new Card(
+					recipe.id,
+					recipe.name,
+					recipe.ingredients,
+					recipe.time,
+					recipe.description,
+					recipe.appliance,
+					recipe.ustensils);
+				this.cards.push(card);
+			}
+			this.containerCards.innerHTML = this.cards.map(card => {
+				return card.render();
+			}).join('');
 		}
 	}
 }
