@@ -115,7 +115,7 @@ li {
 	transform: translate3d(0) !important;
 	top: 0;
 }
-#containerIngredient {
+#containerIngredients {
 	width: 800px;
 	height: 480px;
 	padding: 10px 20px;
@@ -123,18 +123,18 @@ li {
 	overflow: auto;
 	color: white;
 }
-#containerIngredient p {
+#containerIngredients p {
 	width: 33%;
 }
 @media screen and (max-width: 768px) {
-	#containerIngredient {
+	#containerIngredients {
 		width: 100%;
 		height: 480px;
 		flex-direction: column;
 		flex-wrap: nowrap;
 		overflow: auto;
 	}
-	#containerIngredient p {
+	#containerIngredients p {
 	width: auto;
 	margin: 5px 0;
 	}
@@ -163,7 +163,7 @@ li {
 	margin: 5px 0;
 	}
 }
-#containerUstensil {
+#containerUstensils {
 	width: 800px;
 	height: 300px;
 	padding: 10px 20px;
@@ -171,17 +171,17 @@ li {
 	overflow: auto;
 	color: white;
 }
-#containerUstensil p {
+#containerUstensils p {
 	width: 33%;
 }
 @media screen and (max-width: 768px) {
-	#containerUstensil {
+	#containerUstensils {
 		width: 100%;
 		height: 480px;
 		flex-direction: column;
 		flex-wrap: nowrap;
 	}
-	#containerUstensil p {
+	#containerUstensils p {
 	width: auto;
 	margin: 5px 0;
 	}

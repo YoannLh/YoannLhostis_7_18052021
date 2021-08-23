@@ -1,20 +1,67 @@
+let currentCards = [];
 
 class Button {
 	constructor(type, color, data) {
 		this.type = type;
-		this.element = { 'element' : "ingredients" };
 		this.color = color;
 		this.data = data;
 		this.dataSortedByInput = []; 
-		this.dataSortedByInputSearch = []; // ???
 		this.containerKeywords = document.getElementById("containerKeywords");
 		this.input = document.getElementById("searchInDataButton" + this.type); 
 		this.containerElements = document.getElementById("container" + this.type);
-		this.cards = [];
 		this.containerCards = document.getElementById("containerCards");
+		this.clickOnButtonListener = document.getElementById("dropdownMenuButton" + this.type);
+	}
+	listenClickOnButton() {
+		this.clickOnButtonListener.addEventListener("click", () => {
+			if(input.cards.length > 0) {
+				this.data = [];
+				if(this.type == "Ingredients") {
+					for(const recipe of input.cards) {
+						for(const container of recipe.ingredients) {
+							this.data.push(container.ingredient.toLowerCase());
+						}
+					}
+				}
+				if(this.type == "Appliance") {
+					for(const recipe of input.cards) {
+						this.data.push(recipe.appliance.toLowerCase());
+					}	
+				}
+				if(this.type == "Ustensils") {
+					for(const recipe of input.cards) {
+						for(const ustensil of recipe.ustensils) {
+							this.data.push(ustensil.toLowerCase());
+						}
+					}
+				}
+			}
+			if(currentCards.length > 0) {
+				this.data = [];
+				if(this.type == "Ingredients") {
+					for(const recipe of currentCards) {
+						for(const container of recipe.ingredients) {
+							this.data.push(container.ingredient.toLowerCase());
+						}
+					}
+				}
+				if(this.type == "Appliance") {
+					for(const recipe of currentCards) {
+						this.data.push(recipe.appliance.toLowerCase());
+					}
+		}
+				if(this.type == "Ustensils") {
+					for(const recipe of currentCards) {
+						for(const ustensil of recipe.ustensils) {
+							this.data.push(ustensil.toLowerCase());
+						}
+					}
+				}
+			}
+			this.displayElements();
+		})
 	}
 	displayElements() {
-		console.log(this.element);
 		let i = 0;
 		this.containerElements.innerHTML =
 			this.data.map(element => {
@@ -27,7 +74,6 @@ class Button {
 		for(let i = 1; i <= this.data.length; i++) {
 			document.getElementById(this.type.toLowerCase() + i).addEventListener("click", (event) => {
 				main.selectedKeywords.push({"name": event.target.innerText, "color": this.color});
-				console.log(main.selectedKeywords);
 				this.containerKeywords.innerHTML = 
 					main.selectedKeywords.map(element => {
 						return '<div id="' + element.name + '" class="keyword bg-' + element.color + ' flex"><p>' + element.name + '</p><div><i class="far fa-times-circle"></i></div></div>';
@@ -71,7 +117,6 @@ class Button {
 	clickAndDisplaySortedKeyword() { 
 		for(const element of this.dataSortedByInput) {
 			document.getElementById(element).addEventListener("click", (event) => {
-				console.log("click on " + element);
 				main.selectedKeywords.push({"name": event.target.innerText, "color": this.color});
 				this.containerKeywords.innerHTML = 
 					main.selectedKeywords.map(element => {
@@ -85,7 +130,6 @@ class Button {
 		}
 	}
 	closeKeyword() {
-		console.log("close");
 		for(const keyword of main.selectedKeywords) {
 			let id = keyword.name.toString();
 			document.getElementById(id).addEventListener("click", () => {
@@ -101,33 +145,93 @@ class Button {
 		}
 	}
 	displayCards() {
-		console.log("display");
-		String.prototype.sansAccent = function(){
-	   		var accent = [
-		        /[\300-\306]/g, /[\340-\346]/g, // A, a
-	    	    /[\310-\313]/g, /[\350-\353]/g, // E, e
-		        /[\314-\317]/g, /[\354-\357]/g, // I, i
-	    	    /[\322-\330]/g, /[\362-\370]/g, // O, o
-		        /[\331-\334]/g, /[\371-\374]/g, // U, u
-	    	    /[\321]/g, /[\361]/g, // N, n
-		        /[\307]/g, /[\347]/g, // C, c
-	    	];
-	    	var noaccent = ['A','a','E','e','I','i','O','o','U','u','N','n','C','c'];
-	    	var str = this;
-	    	for(var i = 0; i < accent.length; i++){
-	        	str = str.replace(accent[i], noaccent[i]);
-	    	}
-	    	return str;
+		if(input.cards.length == 0) {
+			for(const recipe of main.data) {
+				let array = [];
+				for(const item of recipe.ingredients) {
+					array.push(item.ingredient.toLowerCase());
+				}
+				array.push(recipe.appliance.toLowerCase());
+				for(const item of recipe.ustensils) {
+					array.push(item.toLowerCase());
+				}
+				for(const element of main.selectedKeywords) {
+					if(array.includes(element.name)) {
+						const card = new Card(
+							recipe.id,
+							recipe.name,
+							recipe.ingredients,
+							recipe.time,
+							recipe.description,
+							recipe.appliance,
+							recipe.ustensils);
+						currentCards.push(card);
+					}
+				}	
+				array = [];
+				this.sortByPresentsIngredientsApplianceOrUstensils();
+			}
 		}
-		//this.cards = [];
-		for(const recipe of main.data) {
+		if(input.cards.length > 0) {
+			for(const recipe of input.cards) {
+				let array = [];
+				for(const item of recipe.ingredients) {
+					array.push(item.ingredient.toLowerCase());
+				}
+				array.push(recipe.appliance.toLowerCase());
+				for(const item of recipe.ustensils) {
+					array.push(item.toLowerCase());
+				}
+				for(const element of main.selectedKeywords) {
+					if(array.includes(element.name)) {
+						const card = new Card(
+							recipe.id,
+							recipe.name,
+							recipe.ingredients,
+							recipe.time,
+							recipe.description,
+							recipe.appliance,
+							recipe.ustensils);
+						currentCards.push(card);
+					}
+				}	
+				array = [];
+				this.sortByPresentsIngredientsApplianceOrUstensils();
+			}
+		}
+	}
+	sortByPresentsIngredientsApplianceOrUstensils() {
+		for(const card of currentCards) {
 			let array = [];
-			for(const item of recipe.ingredients) {  
-				array.push(item.ingredient.toLowerCase().sansAccent());
+			for(const container of card.ingredients) {
+				array.push(container.ingredient.toLowerCase());
+			}
+			array.push(card.appliance.toLowerCase());
+			for(const item of card.ustensils) {
+				array.push(item.toLowerCase());
 			}
 			for(const element of main.selectedKeywords) {
-				if(array.includes(element.name)) {
-					console.log("included " + element.name);
+				if(!array.includes(element.name)) {
+					let index = this.cards.indexOf(card);
+					currentCards.splice(index, 1);
+					return;
+				}
+			}
+		}
+		const cache = {};
+		currentCards = currentCards.filter((elem, index, array) => {
+			return cache[elem.id] ? 0 : cache[elem.id] = 1;
+		});
+		this.containerCards.innerHTML = 
+			currentCards.map(card => {
+				return card.render();
+			}).join('');
+		if(main.selectedKeywords.length == 0) {
+			if(input.cards.length > 0) {
+				currentCards = input.cards;
+			} else {
+				currentCards = [];
+				for(const recipe of recipes) {
 					const card = new Card(
 						recipe.id,
 						recipe.name,
@@ -136,53 +240,27 @@ class Button {
 						recipe.description,
 						recipe.appliance,
 						recipe.ustensils);
-					this.cards.push(card);
-				}
-			}	
-			array = [];
-			this.sortByPresentsIngredients();
-		}
-	}
-	sortByPresentsIngredients() { 
-		for(const card of this.cards) {
-			let array = [];
-			for(const container of card.ingredients) {
-				array.push(container.ingredient.toLowerCase().sansAccent());
-			}
-			for(const element of main.selectedKeywords) {
-				if(!array.includes(element.name)) {
-					console.log("not included : " + element.name);
-					let index = this.cards.indexOf(card);
-					this.cards.splice(index, 1);
+					currentCards.push(card);
 				}
 			}
-			array = [];
-		}
-		// A éclaircir
-		const cache = {};
-		this.cards = this.cards.filter((elem, index, array) => {
-			return cache[elem.id] ? 0 : cache[elem.id] = 1;
-		});
-		this.containerCards.innerHTML = 
-			this.cards.map(card => {
-				return card.render();
-			}).join('');
-		if(main.selectedKeywords.length == 0) {
-			this.cards = [];
-			for(const recipe of recipes) {
-				const card = new Card(
-					recipe.id,
-					recipe.name,
-					recipe.ingredients,
-					recipe.time,
-					recipe.description,
-					recipe.appliance,
-					recipe.ustensils);
-				this.cards.push(card);
-			}
-			this.containerCards.innerHTML = this.cards.map(card => {
+			this.containerCards.innerHTML = currentCards.map(card => {
 				return card.render();
 			}).join('');
 		}
+		this.listenClickOnButton();
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
