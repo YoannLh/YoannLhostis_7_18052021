@@ -79,7 +79,7 @@ class Input {
 
 const input = new Input();
 input.listeningChanges();
-input.clickOnSearch();
+
 
 
 
