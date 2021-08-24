@@ -1,3 +1,4 @@
+let iteration = 0; 
 
 class Input {
 	constructor() {
@@ -23,6 +24,7 @@ class Input {
 		})
 	}
 	createAndPushCard(recipe) {
+		iteration++;
 		const card = new Card(
 			recipe.id,
 			recipe.name,
@@ -36,21 +38,27 @@ class Input {
 	displaySortedCardsAndDeleteDoubles() {
 		const cache = {};
 		this.cards = this.cards.filter((elem, index, array) => {
+			iteration++;
 			return cache[elem.id] ? 0 : cache[elem.id] = 1;
 		});
 		this.containerCards.innerHTML = 
 			this.cards.map(card => {
+				iteration++;
 				return card.render();
 			}).join('');
 	}
 	sortAllData() {
 		const recipes = [];
 		for(const recipe of main.data) {
+			iteration++;
 			recipes.push(recipe);
 		}
 		for(const recipe of recipes) {
+			iteration++;
 			for(let i = 0; i <= recipe.name.length; i++) { 
+				iteration++;
 				if(event.target.value == recipe.name.toLowerCase().split('').splice(i, event.target.value.length).join('')) {
+					iteration++;
 					this.createAndPushCard(recipe);	
 				}
 			}
@@ -74,16 +82,13 @@ class Input {
 			}
 			this.displaySortedCardsAndDeleteDoubles();
 		}
+		console.log("iteration : " + iteration);
+		iteration = 0;
 	}
 }
 
 const input = new Input();
 input.listeningChanges();
-
-
-
-
-
 
 
 
