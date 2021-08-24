@@ -65,8 +65,11 @@ class Input {
 			this.displaySortedCardsAndDeleteDoubles();
 		}
 		for(const recipe of recipes) {
+			iteration++;
 			for(const ingredient of recipe.ingredients) {
+				iteration++;
 				for(let i = 0; i <= ingredient.ingredient.length; i++) {
+					iteration++;
 					if(event.target.value == ingredient.ingredient.toLowerCase().split('').splice(i, event.target.value.length).join('')) {
 						this.createAndPushCard(recipe);
 					}
@@ -75,7 +78,9 @@ class Input {
 			this.displaySortedCardsAndDeleteDoubles();
 		}
 		for(const recipe of recipes) {
+			iteration++;
 			for(let i = 0; i <= recipe.description.length; i++) { 
+				iteration++;
 				if(event.target.value == recipe.description.toLowerCase().split('').splice(i, event.target.value.length).join('')) {
 					this.createAndPushCard(recipe);
 				}
