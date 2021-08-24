@@ -45,7 +45,6 @@ class Input {
 						recipe.description,
 						recipe.appliance,
 						recipe.ustensils);
-					iteration++;
 					this.cards.push(card);
 				}	
 			}	
@@ -74,7 +73,6 @@ class Input {
 								recipe.description,
 								recipe.appliance,
 								recipe.ustensils);
-							iteration++;
 							this.cards.push(card);
 						}
 					}
@@ -103,7 +101,6 @@ class Input {
 							recipe.description,
 							recipe.appliance,
 							recipe.ustensils);
-						iteration++;
 						this.cards.push(card);
 					}
 				}
