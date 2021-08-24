@@ -1,3 +1,4 @@
+let iteration = 0;
 
 class Input {
 	constructor() {
@@ -29,10 +30,13 @@ class Input {
 	}
 	sortTitles() {
 		for(const recipe of main.data) { 
+			iteration++;
 			let cleaned = recipe.name.toLowerCase();
 			for(let i = 0; i <= cleaned.length; i++) { 
+				iteration++;
 				let splitted = cleaned.split('');
 				if(event.target.value == splitted.splice(i, event.target.value.length).join('')) {
+					iteration++;
 					const card = new Card(
 						recipe.id,
 						recipe.name,
@@ -41,21 +45,27 @@ class Input {
 						recipe.description,
 						recipe.appliance,
 						recipe.ustensils);
+					iteration++;
 					this.cards.push(card);
 				}	
 			}	
 		}
 	}
 	sortIngredients() {
-		for(const recipe of main.data) { 
+		for(const recipe of main.data) {
+			iteration++;
 			for(const item of recipe.ingredients) {
+				iteration++;
 				let cleaned = item.ingredient.toLowerCase();
 				let result = cleaned.split();
 				for(const word of result) {
+					iteration++;
 					for(let i = 0; i <= word.length; i++) { 
+						iteration++;
 						let splitted = word.split('');
 						if(event.target.value == splitted.splice(i, event.target.value.length).join('')
 						|| event.target.value == cleaned.split('').splice(i, event.target.value.length).join('')) {
+							iteration++;
 							const card = new Card(
 								recipe.id,
 								recipe.name,
@@ -64,6 +74,7 @@ class Input {
 								recipe.description,
 								recipe.appliance,
 								recipe.ustensils);
+							iteration++;
 							this.cards.push(card);
 						}
 					}
@@ -73,13 +84,17 @@ class Input {
 	}
 	sortDescriptions() {
 		for(const recipe of main.data) {
+			iteration++;
 			let cleaned = recipe.description.toLowerCase();
 			let result = cleaned.split();
 			for(const word of result) {
+				iteration++;
 				for(let i = 0; i <= word.length; i++) { 
+					iteration++;
 					let splitted = word.split('');
 					if(event.target.value == splitted.splice(i, event.target.value.length).join('')
 					|| event.target.value == cleaned.split('').splice(i, event.target.value.length).join('')) {
+						iteration++;
 						const card = new Card(
 							recipe.id,
 							recipe.name,
@@ -88,6 +103,7 @@ class Input {
 							recipe.description,
 							recipe.appliance,
 							recipe.ustensils);
+						iteration++;
 						this.cards.push(card);
 					}
 				}
@@ -97,12 +113,16 @@ class Input {
 	deleteDoubles() {
 		const cache = {};
 		this.cards = this.cards.filter((elem, index, array) => {
+			iteration++;
 			return cache[elem.id] ? 0 : cache[elem.id] = 1;
 		});
 		this.containerCards.innerHTML = 
 			this.cards.map(card => {
+				iteration++;
 				return card.render();
 			}).join('');
+			console.log("iterations : " + iteration);
+			iteration = 0;
 	}
 }
 
