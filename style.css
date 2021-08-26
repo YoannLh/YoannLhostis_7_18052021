@@ -78,29 +78,34 @@ li {
 	margin: auto 10%;
 }
 .dropdowns {
-	height: 58px;
+	height: 78px; 
 }
 .dropdown {
-	margin: auto 1% auto 0;
+	margin: 12px 1% auto 0;
+}
+.dropdown button {
+	padding: 12px 12px;
+}
+.dropdown-toggle {
+	justify-content: space-around;
 }
 .dropdown-toggle::after {
-		margin: auto 0;
-	}
+	margin: auto 0;
+}
 @media screen and (max-width: 500px) {
 	.dropdown {
-		width: 25%;
-		margin: auto 1%;
+		width: 30%;
+		margin: auto;
 	}
 	.dropdown button {
 		width: 100%;
-	}
-	.dropdown button p {
-		width: 50%;
-		overflow: auto;
+		padding: 12px 5px;
+		margin: 0 1% 0 0;
 	}
 }
 .dropdown input {
-	width: 50%;
+	width: 56%;
+	height: 48px;
 	margin-left: 2%;
 	border-style: hidden;
 	color: rgba(230, 230, 230, 0.8);
@@ -112,12 +117,31 @@ li {
 	outline: none;
 }
 .dropdown-menu {
-	transform: translate3d(0) !important;
-	top: 0;
+	position: relative !important;
+	top: -56px !important;
+	left: -4px !important;
+	transform: translate3d(0, 0, 0) !important;
+}
+@media screen and (max-width: 500px) {
+	.dropdown-menu {
+		top: -56px !important;
+	}
+}
+.fa-chevron-up {
+	position: absolute;
+	top: 25px;
+	right: 35px;
+	color: white;
+	font-size: 1em;
+}
+@media screen and (max-width: 500px) {
+	.fa-chevron-up {
+		right: 15px;	
+	}
 }
 #containerIngredients {
-	width: 800px;
-	height: 480px;
+	width: 600px;
+	height: 280px;
 	padding: 10px 20px;
 	flex-wrap: wrap;
 	overflow: auto;
@@ -140,8 +164,8 @@ li {
 	}
 }
 #containerAppliance {
-	width: 800px;
-	height: 220px;
+	width: 600px;
+	height: 280px;
 	padding: 10px 20px;
 	flex-wrap: wrap;
 	overflow: auto;
@@ -164,8 +188,8 @@ li {
 	}
 }
 #containerUstensils {
-	width: 800px;
-	height: 300px;
+	width: 600px;
+	height: 280px;
 	padding: 10px 20px;
 	flex-wrap: wrap;
 	overflow: auto;
@@ -187,6 +211,7 @@ li {
 	}
 }
 #containerCards {
+	position: relative;
 	flex-wrap: wrap;
 	justify-content: space-between;
 }
@@ -197,10 +222,10 @@ li {
 	}
 }
 .card {
-	height: 300px;
-	width: 30%;
-	margin-bottom: 45px;
-	border: 1px solid black;
+	height: 330px;
+	width: 30.75%;
+	margin: 0;
+	margin-bottom: 40px;
 }
 @media screen and (max-width: 500px) {
 	.card {
