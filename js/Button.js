@@ -58,6 +58,9 @@ class Button {
 					}
 				}
 			}
+			this.data = this.data.filter((ele, pos) => {
+    			return this.data.indexOf(ele) == pos;
+			})
 			this.displayElements();
 		})
 	}
@@ -212,7 +215,7 @@ class Button {
 			}
 			for(const element of main.selectedKeywords) {
 				if(!array.includes(element.name)) {
-					let index = this.cards.indexOf(card);
+					let index = currentCards.indexOf(card);
 					currentCards.splice(index, 1);
 					return;
 				}
