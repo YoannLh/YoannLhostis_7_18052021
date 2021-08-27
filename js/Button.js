@@ -148,6 +148,7 @@ class Button {
 		}
 	}
 	displayCards() {
+		currentCards = [];
 		if(input.cards.length == 0) {
 			for(const recipe of main.data) {
 				let array = [];
